@@ -12,7 +12,6 @@ import { db } from "@/server/db";
 import { emailAuthentication } from "./email-authentication";
 import { env } from "@/env";
 import { PAGE_ROUTES } from "@/lib/routes";
-import { redirect } from "next/navigation";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {

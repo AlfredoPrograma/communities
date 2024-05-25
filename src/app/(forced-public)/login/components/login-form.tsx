@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -12,28 +11,22 @@ import { Input } from "@/components/ui/input";
 import { loginSchema, type LoginSchema } from "@/shared/auth/login-schema";
 import { useForm } from "react-hook-form";
 
-import { signIn, signOut } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
-import { PAGE_ROUTES } from "@/lib/routes";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ButtonLoading } from "@/components/button-loading";
+import { useLoginMutation } from "../queries/login-mutation";
 
 export function LoginForm() {
   const { toast } = useToast();
+  const loginMutation = useLoginMutation();
 
   const form = useForm<LoginSchema>({
-    defaultValues: {
-      email: "",
-    },
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (formValues: LoginSchema) => {
-    const response = await signIn("email", {
-      email: formValues.email,
-      redirect: false,
-      callbackUrl: PAGE_ROUTES.DASHBOARD,
-    });
+    const response = await loginMutation.mutateAsync(formValues);
 
     if (!response?.ok || response.error) {
       toast({
@@ -55,14 +48,14 @@ export function LoginForm() {
     <Form {...form}>
       <form
         noValidate
-        className="flex items-end gap-4"
+        className="flex flex-wrap items-end gap-4 md:flex-nowrap"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField<LoginSchema>
           name="email"
           control={form.control}
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="w-full md:w-2/3">
               <FormLabel>Email</FormLabel>
 
               <FormControl>
@@ -72,11 +65,13 @@ export function LoginForm() {
           )}
         />
 
-        <Button type="submit">Send code</Button>
-
-        <Button type="button" onClick={() => signOut()}>
-          Logout
-        </Button>
+        <ButtonLoading
+          className="w-full md:w-1/3"
+          isLoading={loginMutation.isPending}
+          type="submit"
+        >
+          Send code
+        </ButtonLoading>
       </form>
     </Form>
   );
