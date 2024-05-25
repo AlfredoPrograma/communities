@@ -11,6 +11,7 @@ import EmailProvider from "next-auth/providers/email";
 import { db } from "@/server/db";
 import { emailAuthentication } from "./email-authentication";
 import { env } from "@/env";
+import { PAGE_ROUTES } from "@/lib/routes";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -39,7 +40,7 @@ export const authOptions: NextAuthOptions = {
   ],
 
   pages: {
-    signIn: "/login",
+    signIn: PAGE_ROUTES.LOGIN,
   },
 };
 

@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 
 import { signIn, signOut } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
+import { PAGE_ROUTES } from "@/lib/routes";
 
 export function LoginForm() {
   const { toast } = useToast();
@@ -28,7 +29,7 @@ export function LoginForm() {
     const response = await signIn("email", {
       email: formValues.email,
       redirect: false,
-      callbackUrl: "/dashboard",
+      callbackUrl: PAGE_ROUTES.DASHBOARD,
     });
 
     if (!response?.ok) {
