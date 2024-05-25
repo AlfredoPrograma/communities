@@ -32,7 +32,7 @@ export function LoginForm() {
       callbackUrl: PAGE_ROUTES.DASHBOARD,
     });
 
-    if (!response?.ok) {
+    if (!response?.ok || response.error) {
       toast({
         title: "Cannot send magic link",
         description:

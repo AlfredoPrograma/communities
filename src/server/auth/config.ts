@@ -12,6 +12,7 @@ import { db } from "@/server/db";
 import { emailAuthentication } from "./email-authentication";
 import { env } from "@/env";
 import { PAGE_ROUTES } from "@/lib/routes";
+import { redirect } from "next/navigation";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -23,6 +24,17 @@ declare module "next-auth" {
 
 export const authOptions: NextAuthOptions = {
   callbacks: {
+    signIn: async ({ user }) => {
+      const userExists = await db.user.findUnique({
+        where: { email: user.email ?? undefined }, // Coerce `null` to `undefined` to fullfill needed type
+      });
+
+      if (!userExists) {
+        throw new Error("Invalid credentials");
+      }
+
+      return true;
+    },
     session: ({ session, user }) => ({
       ...session,
       user: {
