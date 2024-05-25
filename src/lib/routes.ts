@@ -3,3 +3,7 @@ export const PAGE_ROUTES = {
   LOGIN: "/login",
   DASHBOARD: "/dashboard",
 } as const;
+
+export const API_ROUTES = {
+  REGISTER: "/auth/register",
+} as const;

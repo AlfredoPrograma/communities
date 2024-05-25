@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,21 +15,17 @@ import {
 } from "@/shared/auth/register-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRegisterMutation } from "../queries/register-mutation";
+import { ButtonLoading } from "@/components/button-loading";
 
 export function RegisterForm() {
+  const registerMutation = useRegisterMutation();
   const form = useForm<RegisterSchema>({
-    defaultValues: {
-      email: "",
-      identificationNumber: "",
-      image: "",
-      name: "",
-      phoneNumber: "",
-    },
     resolver: zodResolver(registerSchema),
   });
 
   const onSubmit = async (formValues: RegisterSchema) => {
-    console.log(formValues);
+    await registerMutation.mutateAsync(formValues);
   };
 
   return (
@@ -102,7 +97,9 @@ export function RegisterForm() {
           />
         </div>
 
-        <Button>Continue</Button>
+        <ButtonLoading isLoading={registerMutation.isPending}>
+          Continue
+        </ButtonLoading>
       </form>
     </Form>
   );

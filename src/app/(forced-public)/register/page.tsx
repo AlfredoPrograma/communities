@@ -13,7 +13,7 @@ export default async function RegisterPage() {
         <CardHeader>
           <h1 className="text-2xl">Create new account</h1>
           <CardDescription>
-            <h2>And start to improve your community management</h2>
+            And start to improve your community management
           </CardDescription>
         </CardHeader>
 

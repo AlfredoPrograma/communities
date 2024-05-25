@@ -53,6 +53,8 @@ export const authOptions: NextAuthOptions = {
 
   pages: {
     signIn: PAGE_ROUTES.LOGIN,
+    signOut: PAGE_ROUTES.LOGIN,
+    newUser: PAGE_ROUTES.REGISTER,
   },
 };
 

@@ -9,3 +9,8 @@ export const registerSchema = z.object({
 });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;
+
+// TODO: create some abstraction here for API Response and pass particular data as generic
+export type RegisterResponse = {
+  message: string;
+};
