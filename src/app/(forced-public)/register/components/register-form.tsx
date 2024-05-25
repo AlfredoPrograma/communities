@@ -10,8 +10,12 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { type RegisterSchema } from "@/shared/auth/register-schema";
+import {
+  registerSchema,
+  type RegisterSchema,
+} from "@/shared/auth/register-schema";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function RegisterForm() {
   const form = useForm<RegisterSchema>({
@@ -22,6 +26,7 @@ export function RegisterForm() {
       name: "",
       phoneNumber: "",
     },
+    resolver: zodResolver(registerSchema),
   });
 
   const onSubmit = async (formValues: RegisterSchema) => {

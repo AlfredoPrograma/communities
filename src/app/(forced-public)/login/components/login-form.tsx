@@ -9,12 +9,14 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { type LoginSchema } from "@/shared/auth/login-schema";
+import { loginSchema, type LoginSchema } from "@/shared/auth/login-schema";
 import { useForm } from "react-hook-form";
 
 import { signIn, signOut } from "next-auth/react";
 import { useToast } from "@/components/ui/use-toast";
 import { PAGE_ROUTES } from "@/lib/routes";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function LoginForm() {
   const { toast } = useToast();
@@ -23,6 +25,7 @@ export function LoginForm() {
     defaultValues: {
       email: "",
     },
+    resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (formValues: LoginSchema) => {
