@@ -6,7 +6,11 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 
+import EmailProvider from "next-auth/providers/email";
+
 import { db } from "@/server/db";
+import { emailAuthentication } from "./emailAuthentication";
+import { env } from "@/env";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -27,7 +31,12 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   adapter: PrismaAdapter(db) as Adapter,
-  providers: [],
+  providers: [
+    EmailProvider({
+      sendVerificationRequest: emailAuthentication,
+      from: env.RESEND_EMITTER_DOMAIN,
+    }),
+  ],
 };
 
 export const getServerAuthSession = () => getServerSession(authOptions);

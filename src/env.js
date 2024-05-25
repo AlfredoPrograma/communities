@@ -8,6 +8,7 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     RESEND_API_KEY: z.string(),
+    RESEND_EMITTER_DOMAIN: z.string(),
     NEXTAUTH_SECRET:
       process.env.NODE_ENV === "production"
         ? z.string()
@@ -25,6 +26,7 @@ export const env = createEnv({
   },
   runtimeEnv: {
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    RESEND_EMITTER_DOMAIN: process.env.RESEND_EMITTER_DOMAIN,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
