@@ -16,8 +16,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ButtonLoading } from "@/components/button-loading";
 import { useLoginMutation } from "../queries/login-mutation";
+import React from "react";
+import { useUpdateSearchParams } from "@/hooks/useSearchParams";
 
 export function LoginForm() {
+  const updateSearchParams = useUpdateSearchParams();
+
   const { toast } = useToast();
   const loginMutation = useLoginMutation();
 
@@ -38,39 +42,40 @@ export function LoginForm() {
       return;
     }
 
-    toast({
-      title: "Magic link sent",
-      description: "The login link has been sent to your email.",
-    });
+    updateSearchParams(formValues);
   };
 
   return (
     <Form {...form}>
       <form
         noValidate
-        className="flex flex-wrap items-end gap-4 md:flex-nowrap"
+        className="flex flex-col gap-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField<LoginSchema>
           name="email"
           control={form.control}
           render={({ field }) => (
-            <FormItem className="w-full md:w-2/3">
+            <FormItem className="w-full">
               <FormLabel>Email</FormLabel>
 
               <FormControl>
-                <Input {...field} type="email" />
+                <Input
+                  {...field}
+                  placeholder="youremail@mail.com"
+                  type="email"
+                />
               </FormControl>
             </FormItem>
           )}
         />
 
         <ButtonLoading
-          className="w-full md:w-1/3"
+          className="w-full"
           isLoading={loginMutation.isPending}
           type="submit"
         >
-          Send code
+          Send authentication link
         </ButtonLoading>
       </form>
     </Form>

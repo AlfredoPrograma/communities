@@ -1,21 +1,14 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { LoginForm } from "./components/login-form";
+import { LoginCard } from "./components/login-card";
+import { ImageOverlay } from "@/components/image-overlay";
 
 export default async function LoginPage() {
   return (
-    <main className="grid h-screen place-items-center">
-      <Card>
-        <CardHeader>
-          <h1 className="text-2xl">
-            {`Sign in to manage your `}
-            <span className="font-bold">Community</span>
-          </h1>
-        </CardHeader>
+    <main className="relative">
+      <ImageOverlay src="/images/communities.jpg" />
 
-        <CardContent>
-          <LoginForm />
-        </CardContent>
-      </Card>
+      <section className="absolute z-20 grid h-full w-full place-items-center p-6">
+        <LoginCard />
+      </section>
     </main>
   );
 }
