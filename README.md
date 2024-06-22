@@ -1,29 +1,21 @@
-# Create T3 App
+# Communities
+Web application for managing obligations and duties of the members of a community.
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+# Set up
+1. Clone this repository.
+2. Install dependencies using `npm install`.
+3. Copy `.env.example` file into `.env` file and fill the environment variables.
+4. Push Prisma schema to database using `npm run db:push`
+5. Run the application in development mode using `npm run dev`
 
-## What's next? How do I make an app with this?
+# Folder structure
+In this section will be described the chosen folder structure for the development of this project. It will explain folder organization for `src` and its sub directories.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
-
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- `app`: This is the core application folder. It applies `app router` rules from **Next js**. Each folder represents a page or api route of the application. Page directories usually will contain `components`, `hooks` and `queries` subdirectories; which are used for organize page only components, custom hooks and queries respectively.
+- `components`: This will contain **shared and reusable ui components**. It has an `ui` sub directory which is dedicates only for `shadcn-ui`  installable components. Then, the components which are not inside `ui`; are custom reusable components which are used in multiple pages and application modules.
+- `hooks`: This will contain **shared and reusable custom hooks**. These are hooks which are used across multiple pages and accomplish generic behaviors.
+- `lib`: Utilities folder for helper functions.
+- `server`: Provides infrastructure configuration for resources used in server, like **database, mailing, authentication, etc**.
+- `shared`: It organizes shared schemas and types that will be used by frontend and backend. Usually used for validation schemas, payloads and responses between client and server.
+- `styles`: Styling folder with base configuration for `shadcn-ui` and `tailwindcss`.
+- `env.js` file: It contains the schema validation for **environment variables**. It should be modified if new environment variables are added or existing variables are modified.
